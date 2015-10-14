@@ -8,6 +8,10 @@ Find templates, render templates etc
 import os
 import functools
 import pystache
+from . import get_logger
+
+
+LOGGER = get_logger()
 
 
 def dir_visitor(dirname, callable):
@@ -42,6 +46,7 @@ def replicate_directory_tree(input_dir, output_dir):
     def transplant_dir(target, dirname):
         x = dirname.replace(input_dir, target)
         if not os.path.exists(x):
+            LOGGER.info('Creating: {}'.format(x))
             os.makedirs(x)
 
     dir_visitor(
@@ -89,6 +94,7 @@ def render_template(template_in, file_out, context):
     renderer = pystache.Renderer()
     result = renderer.render_path(template_in, context)
     with open(file_out, 'w') as handle:
+        LOGGER.info('Rendering: {} to {}'.format(template_in, file_out))
         handle.write(result)
 
 
@@ -103,6 +109,7 @@ def process_templates(input_dir, target_dir, context):
 
     """
     if not os.path.exists(target_dir):
+        LOGGER.info('Creating: {}'.format(target_dir))
         os.makedirs(target_dir)
     replicate_directory_tree(input_dir, target_dir)
     templates = find_templates(input_dir)

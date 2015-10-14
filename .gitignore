@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *.py~
 
+dockerstache.sublime-project
+dockerstache.sublime-workspace
+venv/
+
 # C extensions
 *.so
 
