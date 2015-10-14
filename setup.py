@@ -6,7 +6,7 @@ requirements_file = open('requirements.txt')
 requirements = requirements_file.read().strip().split('\n')
 
 setup(name='dockerstache',
-      version='0.0.1',
+      version='0.0.2',
       description='Dockerfile mustache templating tools',
       author='Dave Evans',
       author_email='evansde77.github@gmail.com',
