@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(name='dockerstache',
-      version='0.0.0',
+      version='0.0.1',
       description='Dockerfile mustache templating tools',
       author='Dave Evans',
       author_email='evansde77.github@gmail.com',
