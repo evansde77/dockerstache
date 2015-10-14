@@ -7,7 +7,11 @@ import os
 import sys
 import argparse
 import json
+
 from .templates import process_templates
+from . import get_logger
+
+LOGGER = get_logger()
 
 
 def build_parser():
@@ -19,7 +23,7 @@ def build_parser():
 
     """
     parser = argparse.ArgumentParser(
-        description='Diesel docker templating util'
+        description='dockerstache templating util'
     )
     parser.add_argument(
         '--output', '-o',
@@ -54,9 +58,16 @@ def main():
     """
     opts = build_parser()
     if not os.path.exists(opts.context):
-        print("Context file {} not found".format(opts.context))
+        msg = "Context file {} not found".format(opts.context)
+        LOGGER.error(msg)
         sys.exit(1)
-
+    LOGGER.info(
+        (
+            "{{dockerstache}}: In: {}\n"
+            "{{dockerstache}}: Out: {}\n"
+            "{{dockerstache}}: Context: {}\n"
+        ).format(opts.input, opts.output, opts.context)
+    )
     with open(opts.context, 'r') as handle:
         context = json.load(handle)
 
