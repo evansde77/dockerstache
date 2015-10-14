@@ -17,10 +17,10 @@ def dir_visitor(dirname, callable):
     directories and call the callable on them
 
     """
+    callable(dirname)
     for obj in os.listdir(dirname):
         obj_path = os.path.join(dirname, obj)
         if os.path.isdir(obj_path):
-            callable(dirname)
             dir_visitor(obj_path, callable)
 
 
@@ -31,9 +31,14 @@ def replicate_directory_tree(input_dir, output_dir):
     clone dir structure under input_dir into output dir
     """
     def transplant_dir(target, dirname):
-        print "transplant_dir({},{})".format(target, dirname)
+        x = dirname.replace(input_dir, target)
+        if not os.path.exists(x):
+            os.makedirs(x)
 
-    dir_visitor(input_dir, functools.partial(transplant_dir, output_dir))
+    dir_visitor(
+        input_dir,
+        functools.partial(transplant_dir, output_dir)
+    )
 
 
 def find_templates(input_dir):
@@ -43,10 +48,16 @@ def find_templates(input_dir):
     traverse the input_dir structure and return a list
     of template files ending with .mustache
     """
-    pass
+    templates = []
 
+    def template_finder(result, dirname):
+        for obj in os.listdir(dirname):
+            if obj.endswith('.mustache'):
+                result.append(os.path.join(dirname, obj))
 
-if __name__ == '__main__':
-    dname = '/Users/david/Documents/work/docker/try_again/test1'
-    oname = '/Users/david/Documents/work/docker/try_again/test_output'
-    replicate_directory_tree(dname, oname)
+    dir_visitor(
+        input_dir,
+        functools.partial(template_finder, templates)
+    )
+    return templates
+
