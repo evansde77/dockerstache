@@ -26,7 +26,7 @@ class Context(dict):
     def __init__(self, jsonfile=None, defaultfile=None):
         super(Context, self).__init__()
         self._defaults = {}
-        self._default_file = defaultfile
+        self._defaults_file = defaultfile
         self._settings_file = jsonfile
 
     def load(self):
@@ -37,12 +37,12 @@ class Context(dict):
         and overlay the json file on top of that
 
         """
-        if self._default_file is not None:
-            if not os.path.exists(self.default_file):
-                msg = "Unable to find defaults file: {}".format(self._default_file)
+        if self._defaults_file is not None:
+            if not os.path.exists(self._defaults_file):
+                msg = "Unable to find defaults file: {}".format(self._defaults_file)
                 LOGGER.error(msg)
                 raise RuntimeError(msg)
-            with open(self._settings, 'r') as handle:
+            with open(self._defaults_file, 'r') as handle:
                 self._defaults = json.load(handle)
                 self.update(self._defaults)
 
