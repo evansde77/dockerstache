@@ -108,6 +108,8 @@ def process_templates(input_dir, target_dir, context):
     are encountered
 
     """
+    if not target_dir.endswith('/'):
+        target_dir = "{}/".format(target_dir)
     if not os.path.exists(target_dir):
         LOGGER.info('Creating: {}'.format(target_dir))
         os.makedirs(target_dir)

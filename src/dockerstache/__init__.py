@@ -8,6 +8,7 @@ util package for rendering docker files from mustache templates
 import sys
 import logging
 import logging.handlers
+__version__ = '0.0.3'
 
 
 _LOGGER = {
@@ -23,11 +24,14 @@ def get_logger():
 
     """
     if _LOGGER['logger'] is None:
-        _LOGGER['logger']  = setup_logger()
+        _LOGGER['logger'] = setup_logger()
     return _LOGGER['logger']
 
 
 def setup_logger():
+    """
+    setup basic logger
+    """
     logger = logging.getLogger('dockerstache')
     logger.setLevel(logging.INFO)
     handler = logging.StreamHandler(stream=sys.stdout)
