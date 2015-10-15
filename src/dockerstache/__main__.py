@@ -9,6 +9,7 @@ import argparse
 import json
 
 from .templates import process_templates
+from .context import Context
 from . import get_logger
 
 LOGGER = get_logger()
@@ -43,6 +44,12 @@ def build_parser():
         dest='context',
         required=True
     )
+    parser.add_argument(
+        '--defaults', '-d',
+        help='JSON file containing default context dictionary to render templates',
+        dest='defaults',
+        default=None
+    )
 
     opts = parser.parse_args()
     return opts
@@ -66,10 +73,11 @@ def main():
             "{{dockerstache}}: In: {}\n"
             "{{dockerstache}}: Out: {}\n"
             "{{dockerstache}}: Context: {}\n"
-        ).format(opts.input, opts.output, opts.context)
+            "{{dockerstache}}: Defaults: {}\n"
+        ).format(opts.input, opts.output, opts.context, opts.defaults)
     )
-    with open(opts.context, 'r') as handle:
-        context = json.load(handle)
+    context = Context(opts.context, opts.defaults)
+    context.load()
 
     process_templates(
         opts.input,
