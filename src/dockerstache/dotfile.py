@@ -16,6 +16,18 @@ LOGGER = get_logger()
 
 
 def execute_command(working_dir, cmd, env_dict):
+    """
+    execute_command: run the command provided in the working dir
+    specified adding the env_dict settings to the
+    execution environment
+
+    :param working_dir: path to directory to execute command
+       also gets added to the PATH
+    :param cmd: Shell command to execute
+    :param env_dict: dictionary of additional env vars to
+      be passed to the subprocess environment
+
+    """
     proc_env = os.environ.copy()
     proc_env["PATH"] = "{}:{}:.".format(proc_env["PATH"], working_dir)
     proc_env.update(env_dict)
