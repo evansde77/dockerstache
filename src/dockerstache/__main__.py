@@ -8,6 +8,7 @@ import sys
 import argparse
 import json
 
+from .dotfile import Dotfile
 from .templates import process_templates
 from .context import Context
 from . import get_logger
@@ -30,7 +31,7 @@ def build_parser():
         '--output', '-o',
         help='Working directory to render dockerfile and templates',
         dest='output',
-        default=os.path.join(os.getcwd(), 'diesel_output')
+        default=None
         )
     parser.add_argument(
         '--input', '-i',
@@ -42,7 +43,7 @@ def build_parser():
         '--context', '-c',
         help='JSON file containing context dictionary to render templates',
         dest='context',
-        required=True
+        default=None
     )
     parser.add_argument(
         '--defaults', '-d',
@@ -64,26 +65,27 @@ def main():
 
     """
     opts = build_parser()
-    if not os.path.exists(opts.context):
-        msg = "Context file {} not found".format(opts.context)
-        LOGGER.error(msg)
-        sys.exit(1)
-    LOGGER.info(
-        (
-            "{{dockerstache}}: In: {}\n"
-            "{{dockerstache}}: Out: {}\n"
-            "{{dockerstache}}: Context: {}\n"
-            "{{dockerstache}}: Defaults: {}\n"
-        ).format(opts.input, opts.output, opts.context, opts.defaults)
-    )
-    context = Context(opts.context, opts.defaults)
-    context.load()
-
-    process_templates(
-        opts.input,
-        opts.output,
-        context
+    with Dotfile(opts):
+        if not os.path.exists(opts.context):
+            msg = "Context file {} not found".format(opts.context)
+            LOGGER.error(msg)
+            sys.exit(1)
+        LOGGER.info(
+            (
+                "{{dockerstache}}: In: {}\n"
+                "{{dockerstache}}: Out: {}\n"
+                "{{dockerstache}}: Context: {}\n"
+                "{{dockerstache}}: Defaults: {}\n"
+            ).format(opts.input, opts.output, opts.context, opts.defaults)
         )
+        context = Context(opts.context, opts.defaults)
+        context.load()
+
+        process_templates(
+            opts.input,
+            opts.output,
+            context
+            )
 
 
 if __name__ == '__main__':
