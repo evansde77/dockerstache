@@ -7,6 +7,7 @@ for rendering
 
 """
 import os
+import six
 import json
 import collections
 
@@ -18,7 +19,7 @@ LOGGER = get_logger()
 
 def update(d, u):
     """recursive dictionary merge helper"""
-    for k, v in u.iteritems():
+    for k, v in six.iteritems(u):
         if isinstance(v, collections.Mapping):
             r = update(d.get(k, {}), v)
             d[k] = r
