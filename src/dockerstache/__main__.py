@@ -66,6 +66,10 @@ def main():
     """
     opts = build_parser()
     with Dotfile(opts):
+        if opts.context is None:
+            msg = "No context file has been provided"
+            LOGGER.error(msg)
+            sys.exit(1)
         if not os.path.exists(opts.context):
             msg = "Context file {} not found".format(opts.context)
             LOGGER.error(msg)
