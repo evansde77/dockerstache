@@ -45,6 +45,9 @@ class DotfileTests(unittest.TestCase):
             )
         self.opts = mock.Mock()
         self.opts.input = self.tempdir
+        self.opts.output = None
+        self.opts.context = None
+        self.opts.defaults = None
 
     def tearDown(self):
         """cleanup test data """

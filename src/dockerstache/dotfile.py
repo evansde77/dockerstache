@@ -53,6 +53,13 @@ def execute_command(working_dir, cmd, env_dict):
     LOGGER.info(stdout)
 
 
+def absolute_path(p):
+    result = p
+    if not os.path.isabs(p):
+        result = os.path.join(os.getcwd(), p)
+    return os.path.normpath(result)
+
+
 class Dotfile(dict):
     """
     object to encapsulate access to the .dockerstache
@@ -69,22 +76,47 @@ class Dotfile(dict):
         self.setdefault('context', None)
         self.setdefault('defaults', None)
         self.setdefault('output', None)
+        self.setdefault('output_path', None)
+        self.setdefault('context_path', None)
+        self.setdefault('defaults_path', None)
 
     def exists(self):
         """check dotfile exists"""
         return os.path.exists(self.dot_file)
 
     def load(self):
-        """read dotfile and populate self"""
+        """
+        read dotfile and populate self
+        opts will override the dotfile settings,
+        make sure everything is synced in both
+        opts and this object
+
+        """
         if self.exists():
             with open(self.dot_file, 'r') as handle:
                 self.update(json.load(handle))
-        if self.opts.context is None:
+        if self.opts.context is not None:
+            self['context'] = self.opts.context
+        else:
             self.opts.context = self['context']
-        if self.opts.defaults is None:
+        if self.opts.defaults is not None:
+            self['defaults'] = self.opts.defaults
+        else:
             self.opts.defaults = self['defaults']
-        if self.opts.output is None:
-            self.opts.output = self['output']
+        if self.opts.output is not None:
+            self['output'] = self.opts.output
+        else:
+            if self['output'] is None:
+                output = os.path.join(os.getcwd(), 'dockerstache-output')
+                self.opts.output = output
+                self['output'] = output
+            else:
+                self.opts.output = self['output']
+        self['output_path'] = self.abs_output_dir()
+        if self['context'] is not None:
+            self['context_path'] = absolute_path(self['context'])
+        if self['defaults'] is not None:
+            self['defaults_path'] = absolute_path(self['defaults'])
 
     def __enter__(self):
         self.load()
@@ -98,10 +130,11 @@ class Dotfile(dict):
         """
         compute the abs path to the input dir
         """
-        result = self.template_dir
-        if not os.path.isabs(self.template_dir):
-            result = os.path.join(os.getcwd(), self.template_dir)
-        return os.path.normpath(result)
+        return absolute_path(self.template_dir)
+
+    def abs_output_dir(self):
+        """compute absolute output path"""
+        return absolute_path(self['output'])
 
     def env_dictionary(self):
         """
