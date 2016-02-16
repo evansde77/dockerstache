@@ -1,0 +1,5 @@
+{
+  "context": "context.json",
+  "pre_script": "pre_example.sh",
+  "post_script": "post_example.sh"
+}

@@ -1,6 +1,8 @@
 # dockerstache
 Mustache templated dockerfile builder
 
+[![Build Status](https://travis-ci.org/evansde77/dockerstache.svg?branch=develop)](https://travis-ci.org/evansde77/dockerstache)
+
 Given a directory containing Dockerfile's and script templates this tool lets you parametrize them out using [mustache](http://mustache.github.io/) compatible templating and then renders them using a context provided as a json file. 
 The package contains a CLI that does a basic directory structure clone and template render from an initial starting directory containing templates to a copy that contains the rendedered templates suitable for running docker build and docker run commands. 
 
