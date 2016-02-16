@@ -14,7 +14,7 @@ from . import get_logger
 LOGGER = get_logger()
 
 
-def dir_visitor(dirname, callable):
+def dir_visitor(dirname, visitor):
     """
     _dir_visitor_
 
@@ -23,13 +23,13 @@ def dir_visitor(dirname, callable):
 
     :param dirname: Name of directory to start visiting,
       all subdirs will be visited
-    :param callable: Callable invoked on each dir visited
+    :param visitor: Callable invoked on each dir visited
     """
-    callable(dirname)
+    visitor(dirname)
     for obj in os.listdir(dirname):
         obj_path = os.path.join(dirname, obj)
         if os.path.isdir(obj_path):
-            dir_visitor(obj_path, callable)
+            dir_visitor(obj_path, visitor)
 
 
 def replicate_directory_tree(input_dir, output_dir):
