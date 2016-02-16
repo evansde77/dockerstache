@@ -1,2 +1,4 @@
 include requirements.txt
-recursive-exclude tests *
+include test-requirements.txt
+include cirrus.conf
+recursive-exclude test *
