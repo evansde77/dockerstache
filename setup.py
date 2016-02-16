@@ -44,7 +44,10 @@ setup_args ={
     'include_package_data': True,
     'install_requires': requirements,
     'name': parser.get('package', 'name'),
-    'version': parser.get('package', 'version')
+    'version': parser.get('package', 'version'),
+    'url': get_default(parser, 'package', 'url', None),
+    'author': get_default(parser, 'package','author', None),
+    'author_email': get_default(parser, 'package','author_email', None)
 }
 
 if parser.has_section('console_scripts'):
