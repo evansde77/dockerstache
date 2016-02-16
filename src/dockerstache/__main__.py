@@ -65,13 +65,13 @@ def main():
 
     """
     opts = build_parser()
-    with Dotfile(opts):
-        if opts.context is None:
+    with Dotfile(opts) as conf:
+        if conf['context'] is None:
             msg = "No context file has been provided"
             LOGGER.error(msg)
             sys.exit(1)
-        if not os.path.exists(opts.context):
-            msg = "Context file {} not found".format(opts.context)
+        if not os.path.exists(conf['context_path']):
+            msg = "Context file {} not found".format(conf['context_path'])
             LOGGER.error(msg)
             sys.exit(1)
         LOGGER.info(
@@ -80,14 +80,14 @@ def main():
                 "{{dockerstache}}: Out: {}\n"
                 "{{dockerstache}}: Context: {}\n"
                 "{{dockerstache}}: Defaults: {}\n"
-            ).format(opts.input, opts.output, opts.context, opts.defaults)
+            ).format(conf['input'], conf['output'], conf['context'], conf['defaults'])
         )
-        context = Context(opts.context, opts.defaults)
+        context = Context(conf['context'], conf['defaults'])
         context.load()
 
         process_templates(
-            opts.input,
-            opts.output,
+            conf['input'],
+            conf['output'],
             context
             )
 
