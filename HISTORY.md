@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.6 Created: 2016-02-16T19:27:01.918821
+ - Commit History:
+ -- Author: Dave Evans
+ --- 2016-02-16T19:26:44+00:00: add cirrus conf to manifest
+
+ --- 2016-02-16T18:01:53+00:00: Merge branch 'release/0.0.5' into develop
+
+
 Release: 0.0.5 Created: 2016-02-16T18:00:56.627275
  - Commit History:
  -- Author: Dave Evans
