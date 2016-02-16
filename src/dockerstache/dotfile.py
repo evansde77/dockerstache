@@ -79,6 +79,8 @@ class Dotfile(dict):
         self.setdefault('output_path', None)
         self.setdefault('context_path', None)
         self.setdefault('defaults_path', None)
+        self.setdefault('input', self.template_dir)
+        self.setdefault('input_path', None)
 
     def exists(self):
         """check dotfile exists"""
@@ -113,6 +115,7 @@ class Dotfile(dict):
             else:
                 self.opts.output = self['output']
         self['output_path'] = self.abs_output_dir()
+        self['input_path'] = self.abs_input_dir()
         if self['context'] is not None:
             self['context_path'] = absolute_path(self['context'])
         if self['defaults'] is not None:

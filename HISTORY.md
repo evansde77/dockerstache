@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.7 Created: 2016-02-16T23:13:13.063858
+ - Commit History:
+ -- Author: Dave Evans
+ --- 2016-02-16T23:10:20+00:00: make the dotfile act as source of truth for config options after combining with CLI
+
+ --- 2016-02-16T19:28:10+00:00: Merge branch 'release/0.0.6' into develop
+
+
 Release: 0.0.6 Created: 2016-02-16T19:27:01.918821
  - Commit History:
  -- Author: Dave Evans
