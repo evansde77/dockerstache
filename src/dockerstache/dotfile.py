@@ -7,6 +7,7 @@ for config/actions found inside it
 
 """
 import os
+import six
 import json
 import subprocess
 from . import get_logger
@@ -108,7 +109,7 @@ class Dotfile(dict):
         env var dictionary for pre and post scripts
         """
         none_to_str = lambda x: str(x) if x else ""
-        return {"DOCKERSTACHE_{}".format(k): none_to_str(v) for k, v in self.iteritems()}
+        return {"DOCKERSTACHE_{}".format(k.upper()): none_to_str(v) for k, v in six.iteritems(self)}
 
     def pre_script(self):
         """
