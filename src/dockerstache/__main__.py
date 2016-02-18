@@ -6,12 +6,10 @@ _dockerstache_
 import os
 import sys
 import argparse
-import json
 
-from .dotfile import Dotfile
-from .templates import process_templates
-from .context import Context
 from . import get_logger
+from .dockerstache import run
+
 
 LOGGER = get_logger()
 
@@ -51,9 +49,8 @@ def build_parser():
         dest='defaults',
         default=None
     )
-
     opts = parser.parse_args()
-    return opts
+    return vars(opts)
 
 
 def main():
@@ -64,33 +61,17 @@ def main():
     the template rendering process
 
     """
-    opts = build_parser()
-    with Dotfile(opts) as conf:
-        if conf['context'] is None:
-            msg = "No context file has been provided"
-            LOGGER.error(msg)
-            sys.exit(1)
-        if not os.path.exists(conf['context_path']):
-            msg = "Context file {} not found".format(conf['context_path'])
-            LOGGER.error(msg)
-            sys.exit(1)
-        LOGGER.info(
-            (
-                "{{dockerstache}}: In: {}\n"
-                "{{dockerstache}}: Out: {}\n"
-                "{{dockerstache}}: Context: {}\n"
-                "{{dockerstache}}: Defaults: {}\n"
-            ).format(conf['input'], conf['output'], conf['context'], conf['defaults'])
-        )
-        context = Context(conf['context'], conf['defaults'])
-        context.load()
+    options = build_parser()
+    try:
+        run(**options)
+    except RuntimeError as ex:
+        msg = (
+            "An error occurred running dockerstache: {} "
+            "please see logging info above for details"
 
-        process_templates(
-            conf['input'],
-            conf['output'],
-            context
-            )
-
+        ).format(ex)
+        LOGGER.error(msg)
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()

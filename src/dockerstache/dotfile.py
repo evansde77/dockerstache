@@ -68,8 +68,8 @@ class Dotfile(dict):
     """
     def __init__(self, opts):
         super(Dotfile, self).__init__()
-        self.opts = opts
-        self.template_dir = opts.input
+        self.options = opts
+        self.template_dir = opts['input']
         self.dot_file = os.path.join(self.template_dir, '.dockerstache')
         self.setdefault('pre_script', None)
         self.setdefault('post_script', None)
@@ -97,23 +97,19 @@ class Dotfile(dict):
         if self.exists():
             with open(self.dot_file, 'r') as handle:
                 self.update(json.load(handle))
-        if self.opts.context is not None:
-            self['context'] = self.opts.context
+        if self.options['context'] is not None:
+            self['context'] = self.options['context']
         else:
-            self.opts.context = self['context']
-        if self.opts.defaults is not None:
-            self['defaults'] = self.opts.defaults
+            self.options['context'] = self['context']
+        if self.options['defaults'] is not None:
+            self['defaults'] = self.options['defaults']
         else:
-            self.opts.defaults = self['defaults']
-        if self.opts.output is not None:
-            self['output'] = self.opts.output
-        else:
-            if self['output'] is None:
-                output = os.path.join(os.getcwd(), 'dockerstache-output')
-                self.opts.output = output
-                self['output'] = output
-            else:
-                self.opts.output = self['output']
+            self.options['defaults'] = self['defaults']
+        if self.options['output'] is not None:
+            self['output'] = self.options['output']
+
+        if self['output'] is None:
+            self['output'] = os.path.join(os.getcwd(), 'dockerstache-output')
         self['output_path'] = self.abs_output_dir()
         self['input_path'] = self.abs_input_dir()
         if self['context'] is not None:
@@ -127,7 +123,13 @@ class Dotfile(dict):
         return self
 
     def __exit__(self, *args):
-        self.post_script()
+        if args:
+            if args[0] is None:
+                self.post_script()
+            else:
+                msg = "Error running dockerstache command: {}".format(args[0])
+                LOGGER.error(msg)
+                raise
 
     def abs_input_dir(self):
         """
