@@ -1,6 +1,20 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.8 Created: 2016-02-18T19:39:59.938978
+ - Commit History:
+ -- Author: Dave Evans
+ --- 2016-02-18T19:32:35+00:00: Merge pull request #5 from evansde77/feature/more-api-friendly
+
+Refactor as API
+ --- 2016-02-18T17:49:15+00:00: fixup logic for post script on error, update tests
+
+ --- 2016-02-18T17:45:49+00:00: refactor to make core function API friendly rather than just CLI
+
+ --- 2016-02-17T16:58:43+00:00: Update README.md
+ --- 2016-02-16T23:17:35+00:00: Merge branch 'release/0.0.7' into develop
+
+
 Release: 0.0.7 Created: 2016-02-16T23:13:13.063858
  - Commit History:
  -- Author: Dave Evans
