@@ -124,12 +124,12 @@ class Dotfile(dict):
 
     def __exit__(self, *args):
         if args:
-            if isinstance(args[0], Exception):
+            if args[0] is None:
+                self.post_script()
+            else:
                 msg = "Error running dockerstache command: {}".format(args[0])
                 LOGGER.error(msg)
                 raise
-        else:
-            self.post_script()
 
     def abs_input_dir(self):
         """
