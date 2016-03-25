@@ -1,6 +1,16 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.9 Created: 2016-03-25T14:38:01.968388
+ - Commit History:
+ -- Author: Dave Evans
+ --- 2016-03-24T16:12:30+00:00: support extensions in tests
+
+ --- 2016-03-24T16:03:28+00:00: support extend context
+
+ --- 2016-02-18T19:40:24+00:00: Merge branch 'release/0.0.8' into develop
+
+
 Release: 0.0.8 Created: 2016-02-18T19:39:59.938978
  - Commit History:
  -- Author: Dave Evans

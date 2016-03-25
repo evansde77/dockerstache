@@ -8,7 +8,7 @@ util package for rendering docker files from mustache templates
 import sys
 import logging
 import logging.handlers
-__version__="0.0.8"
+__version__="0.0.9"
 
 
 _LOGGER = {
