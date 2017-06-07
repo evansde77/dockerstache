@@ -7,7 +7,10 @@ projects managed with cirrus.
 
 """
 import setuptools
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
 
 
 def get_default(parser, section, option, default):
