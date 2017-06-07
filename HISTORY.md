@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.10 Created: 2017-06-07T21:46:26.846356
+ - Commit History:
+ -- Author: Dave Evans
+ --- 2017-06-07T21:45:43+00:00: python3 support in setup.py
+
+ --- 2016-03-25T14:38:27+00:00: Merge branch 'release/0.0.9' into develop
+
+
 Release: 0.0.9 Created: 2016-03-25T14:38:01.968388
  - Commit History:
  -- Author: Dave Evans
