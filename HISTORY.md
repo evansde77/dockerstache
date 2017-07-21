@@ -1,6 +1,15 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.11 Created: 2017-07-21T15:44:04.476327
+ - Commit History:
+ -- Author: some_user
+ --- 2017-07-21T15:39:53+00:00: add option to include non template files and exclude individual files
+
+ -- Author: Dave Evans
+ --- 2017-06-07T21:47:02+00:00: Merge branch 'release/0.0.10' into develop
+
+
 Release: 0.0.10 Created: 2017-06-07T21:46:26.846356
  - Commit History:
  -- Author: Dave Evans

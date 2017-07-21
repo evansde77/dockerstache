@@ -27,6 +27,20 @@ class TemplatesTests(unittest.TestCase):
         self.template2 = os.path.join(
             self.tempdir, 'dir1', 'dir4', 'dir5', 'template2.json.mustache'
         )
+        self.file1 = os.path.join(
+            self.tempdir, 'dir1', 'dir2', 'not-a-template.json'
+        )
+        self.file2 = os.path.join(
+            self.tempdir, 'dir1', 'dir2', 'exclude-this.json'
+        )
+        with open(self.file1, 'w') as handle:
+            json.dump({
+                "value": [1, 2, 3]
+                }, handle)
+        with open(self.file2, 'w') as handle:
+            json.dump({
+                "value": [4, 5, 6]
+                }, handle)
         with open(self.template1, 'w') as handle:
             json.dump({
                 'template': 1,
@@ -107,6 +121,27 @@ class TemplatesTests(unittest.TestCase):
         self.failUnless('value' in data2)
         self.assertEqual(data2['template'], 2)
         self.assertEqual(data2['value'], context['group'])
+
+    def test_copy_files(self):
+        """test processing templates and files"""
+        context = {'user': 'steve', 'group': 'vanhalen'}
+        templ.process_templates(self.tempdir, self.target_dir, context)
+        templ.process_copies(self.tempdir, self.target_dir, ['exclude-this.json'])
+        expected_path1 = os.path.join(self.target_dir, 'dir1', 'dir2', 'dir3')
+        expected_path2 = os.path.join(self.target_dir, 'dir1', 'dir4', 'dir5')
+        self.failUnless(os.path.exists(expected_path1))
+        self.failUnless(os.path.exists(expected_path2))
+
+        expected_file1 = os.path.join(
+            self.target_dir, 'dir1', 'dir2', 'template1.json'
+        )
+        expected_file2 = os.path.join(
+            self.target_dir, 'dir1', 'dir4', 'dir5', 'template2.json'
+        )
+        expected_file3 = os.path.join(
+            self.target_dir, 'dir1', 'dir2', 'not-a-template.json'
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

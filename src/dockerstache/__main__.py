@@ -49,6 +49,18 @@ def build_parser():
         dest='defaults',
         default=None
     )
+    parser.add_argument(
+        '--inclusive',
+        help='include non .mustache files from template',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
+        '--exclude', '-e',
+        help='exclude files from template in this list',
+        default=[],
+        nargs='+'
+    )
     opts = parser.parse_args()
     return vars(opts)
 

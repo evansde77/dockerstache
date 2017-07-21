@@ -81,6 +81,8 @@ class Dotfile(dict):
         self.setdefault('defaults_path', None)
         self.setdefault('input', self.template_dir)
         self.setdefault('input_path', None)
+        self.setdefault('inclusive', False)
+        self.setdefault('exclude', [])
 
     def exists(self):
         """check dotfile exists"""
@@ -107,6 +109,12 @@ class Dotfile(dict):
             self.options['defaults'] = self['defaults']
         if self.options['output'] is not None:
             self['output'] = self.options['output']
+
+        if self.options['inclusive']:
+            self['inclusive'] = True
+
+        if self.options['exclude']:
+            self['exclude'].extend(self.options['exclude'])
 
         if self['output'] is None:
             self['output'] = os.path.join(os.getcwd(), 'dockerstache-output')
