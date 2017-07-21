@@ -8,7 +8,7 @@ Main function to invoke dockerstache as a lib call
 import os
 
 from .dotfile import Dotfile
-from .templates import process_templates
+from .templates import process_templates, process_copies
 from .context import Context
 from . import get_logger
 
@@ -54,5 +54,11 @@ def run(**options):
             conf['input'],
             conf['output'],
             context
+            )
+        if conf['inclusive']:
+            process_copies(
+                conf['input'],
+                conf['output'],
+                conf['exclude']
             )
     return dict(conf)

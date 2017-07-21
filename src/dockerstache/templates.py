@@ -8,6 +8,7 @@ Find templates, render templates etc
 import os
 import functools
 import pystache
+import shutil
 from . import get_logger
 
 
@@ -80,6 +81,32 @@ def find_templates(input_dir):
     return templates
 
 
+def find_copies(input_dir, exclude_list):
+    """
+    find files that are not templates and not
+    in the exclude_list for copying from template to image
+    """
+    copies = []
+
+    def copy_finder(copies, dirname):
+        for obj in os.listdir(dirname):
+            pathname = os.path.join(dirname, obj)
+            if os.path.isdir(pathname):
+                continue
+            if obj in exclude_list:
+                continue
+            if obj.endswith('.mustache'):
+                continue
+
+            copies.append(os.path.join(dirname, obj))
+
+    dir_visitor(
+        input_dir,
+        functools.partial(copy_finder, copies)
+    )
+    return copies
+
+
 def render_template(template_in, file_out, context):
     """
     _render_template_
@@ -96,6 +123,17 @@ def render_template(template_in, file_out, context):
     with open(file_out, 'w') as handle:
         LOGGER.info('Rendering: {} to {}'.format(template_in, file_out))
         handle.write(result)
+
+
+def copy_file(src, target):
+    """
+    copy_file
+
+    copy source to target
+
+    """
+    LOGGER.info("Copying {} to {}".format(src, target))
+    shutil.copyfile(src, target)
 
 
 def process_templates(input_dir, target_dir, context):
@@ -119,3 +157,18 @@ def process_templates(input_dir, target_dir, context):
         output_file = templ.replace(input_dir, target_dir)
         output_file = output_file[:-len('.mustache')]
         render_template(templ,  output_file, context)
+
+
+def process_copies(input_dir, target_dir, excludes):
+    """
+    _process_copies_
+
+    Handles files to be copied across, assumes
+    that dir structure has already been replicated
+
+    """
+    copies = find_copies(input_dir, excludes)
+    for c in copies:
+        output_file = c.replace(input_dir, target_dir)
+        copy_file(c,  output_file)
+

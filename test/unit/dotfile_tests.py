@@ -48,6 +48,8 @@ class DotfileTests(unittest.TestCase):
         self.opts['output'] = None
         self.opts['context'] = None
         self.opts['defaults'] = None
+        self.opts['inclusive'] = False
+        self.opts['exclude'] = []
 
     def tearDown(self):
         """cleanup test data """
