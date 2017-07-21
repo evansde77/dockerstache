@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.12 Created: 2017-07-21T16:00:54.926130
+ - Commit History:
+ -- Author: some_user
+ --- 2017-07-21T15:55:13+00:00: make options checking safer
+
+ --- 2017-07-21T15:44:41+00:00: Merge branch 'release/0.0.11' into develop
+
+
 Release: 0.0.11 Created: 2017-07-21T15:44:04.476327
  - Commit History:
  -- Author: some_user
