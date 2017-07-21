@@ -110,10 +110,10 @@ class Dotfile(dict):
         if self.options['output'] is not None:
             self['output'] = self.options['output']
 
-        if self.options['inclusive']:
+        if self.options.get('inclusive', False):
             self['inclusive'] = True
 
-        if self.options['exclude']:
+        if self.options.get('exclude', []):
             self['exclude'].extend(self.options['exclude'])
 
         if self['output'] is None:
