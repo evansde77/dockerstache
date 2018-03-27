@@ -1,6 +1,17 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.13 Created: 2018-03-27T20:54:28.078505
+ - Commit History:
+ -- Author: devans
+ --- 2018-03-27T20:52:54+00:00: add py3.6 tests
+
+ --- 2018-03-27T20:51:24+00:00: tweak requirements
+
+ -- Author: some_user
+ --- 2017-07-21T16:01:25+00:00: Merge branch 'release/0.0.12' into develop
+
+
 Release: 0.0.12 Created: 2017-07-21T16:00:54.926130
  - Commit History:
  -- Author: some_user
