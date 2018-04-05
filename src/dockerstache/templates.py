@@ -123,6 +123,7 @@ def render_template(template_in, file_out, context):
     with open(file_out, 'w') as handle:
         LOGGER.info('Rendering: {} to {}'.format(template_in, file_out))
         handle.write(result)
+    shutil.copymode(template_in, file_out)
 
 
 def copy_file(src, target):
@@ -134,6 +135,7 @@ def copy_file(src, target):
     """
     LOGGER.info("Copying {} to {}".format(src, target))
     shutil.copyfile(src, target)
+    shutil.copymode(src, target)
 
 
 def process_templates(input_dir, target_dir, context):

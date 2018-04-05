@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.14 Created: 2018-04-05T17:37:19.180474
+ - Commit History:
+ -- Author: devans
+ --- 2018-04-05T17:33:34+00:00: copy file permissions when rendering templates
+
+ --- 2018-03-27T20:55:01+00:00: Merge branch 'release/0.0.13' into develop
+
+
 Release: 0.0.13 Created: 2018-03-27T20:54:28.078505
  - Commit History:
  -- Author: devans
