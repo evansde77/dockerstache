@@ -7,7 +7,6 @@ Find templates, render templates etc
 """
 import os
 import functools
-import pystache
 import chevron
 import shutil
 from . import get_logger
