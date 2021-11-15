@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.17 Created: 2021-11-15T18:37:26.100385
+ - Commit History:
+ -- Author: devans
+ --- 2021-11-15T18:37:00+00:00: bugfix arg passing to chevron.render
+
+ --- 2021-11-15T18:30:41+00:00: Merge branch 'release/0.0.16' into develop
+
+
 Release: 0.0.16 Created: 2021-11-15T18:30:15.643279
  - Commit History:
  -- Author: devans
