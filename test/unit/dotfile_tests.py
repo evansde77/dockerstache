@@ -59,14 +59,14 @@ class DotfileTests(unittest.TestCase):
     def test_dotfile(self):
         """test mechnics of Dotfile load"""
         dotfile = Dotfile(self.opts)
-        self.failUnless(dotfile.exists())
+        self.assertTrue(dotfile.exists())
         self.assertEqual(dotfile.abs_input_dir(), self.tempdir)
         d = dotfile.env_dictionary()
-        self.failUnless('DOCKERSTACHE_DEFAULTS' in d)
-        self.failUnless('DOCKERSTACHE_POST_SCRIPT' in d)
-        self.failUnless('DOCKERSTACHE_PRE_SCRIPT' in d)
-        self.failUnless('DOCKERSTACHE_OUTPUT' in d)
-        self.failUnless('DOCKERSTACHE_CONTEXT' in d)
+        self.assertTrue('DOCKERSTACHE_DEFAULTS' in d)
+        self.assertTrue('DOCKERSTACHE_POST_SCRIPT' in d)
+        self.assertTrue('DOCKERSTACHE_PRE_SCRIPT' in d)
+        self.assertTrue('DOCKERSTACHE_OUTPUT' in d)
+        self.assertTrue('DOCKERSTACHE_CONTEXT' in d)
 
         dotfile.load()
         d = dotfile.env_dictionary()

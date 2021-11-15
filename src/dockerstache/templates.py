@@ -8,6 +8,7 @@ Find templates, render templates etc
 import os
 import functools
 import pystache
+import chevron
 import shutil
 from . import get_logger
 
@@ -118,8 +119,10 @@ def render_template(template_in, file_out, context):
        missing values
 
     """
-    renderer = pystache.Renderer()
-    result = renderer.render_path(template_in, context)
+    #renderer = pystache.Renderer()
+    #result = renderer.render_path(template_in, context)
+    with open(template_in, 'r') as f:
+        result = chevron.render(f, **context)
     with open(file_out, 'w') as handle:
         LOGGER.info('Rendering: {} to {}'.format(template_in, file_out))
         handle.write(result)

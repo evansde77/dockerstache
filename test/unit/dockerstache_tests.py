@@ -59,7 +59,7 @@ class RunAPITests(unittest.TestCase):
     def test_run(self, mock_process):
         """test run method"""
         run(**self.opts)
-        self.failUnless(mock_process.called)
+        self.assertTrue(mock_process.called)
 
     @mock.patch('dockerstache.dockerstache.process_templates')
     def test_run_extend_context(self, mock_process):
@@ -67,9 +67,9 @@ class RunAPITests(unittest.TestCase):
         extend = {'extensions': {'extras': 'values'}}
         self.opts['extend_context'] = extend
         run(**self.opts)
-        self.failUnless(mock_process.called)
+        self.assertTrue(mock_process.called)
         context = mock_process.call_args[0][2]
-        self.failUnless('extensions' in context)
+        self.assertTrue('extensions' in context)
 
 
 if __name__ == '__main__':

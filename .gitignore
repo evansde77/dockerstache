@@ -62,3 +62,4 @@ docs/_build/
 target/
 venv2
 venv3
+.idea/

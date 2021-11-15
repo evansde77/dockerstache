@@ -48,8 +48,8 @@ class ContextTests(unittest.TestCase):
         """test loading context file with no defaults"""
         ctx = Context(self.context)
         ctx.load()
-        self.failUnless('context' in ctx)
-        self.failUnless('defaults' in ctx)
+        self.assertTrue('context' in ctx)
+        self.assertTrue('defaults' in ctx)
         self.assertEqual(ctx['context']['value3'], 3)
         self.assertEqual(ctx['context']['value4'], 4)
         self.assertEqual(ctx['defaults']['value2'], 100)
@@ -58,8 +58,8 @@ class ContextTests(unittest.TestCase):
         """test default and context loading and override precedence"""
         ctx = Context(self.context, self.defaults)
         ctx.load()
-        self.failUnless('context' in ctx)
-        self.failUnless('defaults' in ctx)
+        self.assertTrue('context' in ctx)
+        self.assertTrue('defaults' in ctx)
         self.assertEqual(ctx['context']['value3'], 3)
         self.assertEqual(ctx['context']['value4'], 4)
         self.assertEqual(ctx['default_value'], 99)
