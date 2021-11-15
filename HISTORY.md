@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.16 Created: 2021-11-15T18:30:15.643279
+ - Commit History:
+ -- Author: devans
+ --- 2021-11-15T18:29:59+00:00: squash last import of pystache
+
+ --- 2021-11-15T17:25:50+00:00: Merge branch 'release/0.0.15' into develop
+
+
 Release: 0.0.15 Created: 2021-11-15T17:23:37.309318
  - Commit History:
  -- Author: devans
