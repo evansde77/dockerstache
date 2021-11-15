@@ -1,6 +1,14 @@
 
 CIRRUS_UPDATE_SENTINEL
 
+Release: 0.0.15 Created: 2021-11-15T17:23:37.309318
+ - Commit History:
+ -- Author: devans
+ --- 2021-11-15T16:46:57+00:00: switch from pystache to chevron for rendering, update some test code and fix warnings
+
+ --- 2018-04-05T17:37:49+00:00: Merge branch 'release/0.0.14' into develop
+
+
 Release: 0.0.14 Created: 2018-04-05T17:37:19.180474
  - Commit History:
  -- Author: devans
