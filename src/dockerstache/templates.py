@@ -118,10 +118,8 @@ def render_template(template_in, file_out, context):
        missing values
 
     """
-    #renderer = pystache.Renderer()
-    #result = renderer.render_path(template_in, context)
     with open(template_in, 'r') as f:
-        result = chevron.render(f, **context)
+        result = chevron.render(f, data=context)
     with open(file_out, 'w') as handle:
         LOGGER.info('Rendering: {} to {}'.format(template_in, file_out))
         handle.write(result)
